@@ -1,0 +1,37 @@
+server:
+  port: 8084
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongodb:27017/storagedb
+  kafka:
+    bootstrap-servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: storage-ms
+      auto-offset-reset: earliest
+
+minio:
+  url: http://minio:9000
+  access-key: ${MINIO_ROOT_USER}
+  secret-key: ${MINIO_ROOT_PASSWORD}
+  default-expiry: 3600 # 1 hour in seconds for presigned URLs
+
+logging:
+  level:
+    root: INFO
+    com.gbai.storage_ms: INFO
+  pattern:
+    console: '{"timestamp":"%d{yyyy-MM-dd HH:mm:ss.SSS}","level":"%p","thread":"%t","logger":"%c","message":"%m","exception":"%ex"}'
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always 

@@ -1,0 +1,15 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/storagedb-test
+
+minio:
+  url: http://localhost:9000
+  access-key: test-access-key
+  secret-key: test-secret-key
+  default-expiry: 3600 # 1 hour in seconds (within MinIO's 1 second to 7 days range)
+
+logging:
+  level:
+    root: WARN
+    com.gbai.storage_ms: DEBUG 
