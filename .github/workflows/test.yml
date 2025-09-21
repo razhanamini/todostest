@@ -1,0 +1,25 @@
+name: Debt Scanner
+
+on:
+  workflow_dispatch:
+    inputs:
+      patterns:
+        description: 'Comma-separated patterns to search for (e.g., TODO,FIXME,HACK)'
+        required: true
+        default: 'TODO,FIXME,HACK'
+
+jobs:
+  scan-debt:
+    runs-on: ubuntu-latest
+    permissions:
+        issues: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run debt scanner
+      uses: razhanamini/TECHDEBT@main  # <-- This references YOUR action
+      with:
+        patterns: ${{ github.event.inputs.patterns }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
