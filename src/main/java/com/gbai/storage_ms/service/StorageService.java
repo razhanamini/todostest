@@ -63,7 +63,7 @@ public class StorageService {
                 return new PresignedUrlResponse(url, fileId, bucket, "PUT", defaultExpiry);
             }));
     }
-
+// HACK needs maintenance
     public Mono<PresignedUrlResponse> generatePresignedDownloadUrl(String videoId) {
         return metadataRepository.findById(videoId)
             .flatMap(metadata -> Mono.fromCallable(() -> {
@@ -75,7 +75,6 @@ public class StorageService {
                         .expiry(defaultExpiry)
                         .build()
                 );
-                return new PresignedUrlResponse(url, videoId, "competition-" + metadata.getCompetitionId(), "GET", defaultExpiry);
             }));
     }
 
